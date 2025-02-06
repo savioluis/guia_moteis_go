@@ -44,7 +44,7 @@ class HttpClient implements IHttpClient {
       final uri = _buildUri(path, queryParameters);
       final response =
           await http.get(uri, headers: {...defaultHeaders, ...?headers});
-      return _handleResponse(response) as T?;
+      return _handleResponse<T?>(response);
     } catch (e) {
       throw Exception('Erro no GET: $e');
     }
@@ -67,7 +67,7 @@ class HttpClient implements IHttpClient {
         },
         body: jsonEncode(data),
       );
-      return _handleResponse(response) as T?;
+      return _handleResponse<T?>(response);
     } catch (e) {
       throw Exception('Erro no POST: $e');
     }
@@ -90,7 +90,7 @@ class HttpClient implements IHttpClient {
         },
         body: jsonEncode(data),
       );
-      return _handleResponse(response) as T?;
+      return _handleResponse<T?>(response);
     } catch (e) {
       throw Exception('Erro no PUT: $e');
     }
@@ -113,7 +113,7 @@ class HttpClient implements IHttpClient {
         },
         body: data != null ? jsonEncode(data) : null,
       );
-      return _handleResponse(response) as T?;
+      return _handleResponse<T?>(response);
     } catch (e) {
       throw Exception('Erro no DELETE: $e');
     }
@@ -136,7 +136,7 @@ class HttpClient implements IHttpClient {
         },
         body: jsonEncode(data),
       );
-      return _handleResponse(response) as T?;
+      return _handleResponse<T?>(response);
     } catch (e) {
       throw Exception('Erro no PATCH: $e');
     }
