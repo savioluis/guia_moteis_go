@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guia_moteis_go/core/theme/app_theme.dart';
-import 'package:guia_moteis_go/src/features/home/home_page.dart';
+import 'package:guia_moteis_go/src/features/home/presentation/home_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
