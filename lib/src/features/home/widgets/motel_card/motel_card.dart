@@ -26,8 +26,12 @@ class MotelCardListView extends StatelessWidget {
             itemCount: motels.length,
             onFetchData: () {},
             separatorBuilder: (context, index) => const SizedBox(width: 12),
+            physics: const PageScrollPhysics(),
             itemBuilder: (context, index) {
-              return SizedBox(
+              return Container(
+                margin: index == 0
+                    ? const EdgeInsets.only(left: 12)
+                    : const EdgeInsets.symmetric(horizontal: 12),
                 width: MediaQuery.sizeOf(context).width - 48,
                 child: CardBody(
                   body: motels[index].body,

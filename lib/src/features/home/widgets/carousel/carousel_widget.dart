@@ -80,9 +80,9 @@ class CarouselWidget extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      height: i == value ? 12 : 8,
-                      width: i == value ? 12 : 8,
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      height: i == value ? 9 : 6,
+                      width: i == value ? 9 : 6,
                       decoration: BoxDecoration(
                         color: i == value
                             ? context.greyColor

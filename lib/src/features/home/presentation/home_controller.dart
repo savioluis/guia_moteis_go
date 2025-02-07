@@ -22,6 +22,7 @@ class HomeController extends Cubit<HomeState> {
         return;
       }
 
+      // emit(HomeFailureState(message: 'Erro inesperado !'));
       emit(HomeSuccessState(motelsResponse: motelsResponse));
     } catch (e) {
       emit(HomeFailureState(message: e.toString()));
