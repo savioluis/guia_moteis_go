@@ -19,9 +19,8 @@ class MotelCardListView extends StatelessWidget {
       children: [
         CardHeader(header: motels[0].header),
         const SizedBox(height: 24),
-        Container(
-          color: Colors.blue.withOpacity(0.2),
-          height: 999,
+        SizedBox(
+          height: 688,
           child: InfiniteList(
             scrollDirection: Axis.horizontal,
             itemCount: motels.length,
@@ -263,31 +262,134 @@ class PriceContent extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${priceModel.duration} horas',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w300,
+                  priceModel.discount != null
+                      ? ContentWithDiscount(
+                          duration: priceModel.duration,
+                          price: priceModel.price,
+                          totalPrice: priceModel.totalPrice,
+                          discount: priceModel.discount!,
+                        )
+                      : ContentWithNoDiscount(
+                          duration: priceModel.duration,
+                          price: priceModel.price,
                         ),
-                      ),
-                      Text(
-                        'R\$ ${priceModel.price.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ),
                   const Icon(Icons.keyboard_arrow_right_rounded),
                 ],
               ),
             ),
           )
           .toList(),
+    );
+  }
+}
+
+class ContentWithNoDiscount extends StatelessWidget {
+  const ContentWithNoDiscount({
+    super.key,
+    required this.duration,
+    required this.price,
+  });
+
+  final String duration;
+  final double price;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$duration horas',
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+        Text(
+          'R\$ ${price.toStringAsFixed(2)}',
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ContentWithDiscount extends StatelessWidget {
+  const ContentWithDiscount({
+    super.key,
+    required this.duration,
+    required this.price,
+    required this.totalPrice,
+    required this.discount,
+  });
+
+  final String duration;
+  final double price;
+  final double totalPrice;
+  final double discount;
+
+  @override
+  Widget build(BuildContext context) {
+    final discountPercentage = ((price - totalPrice) / price) * 100;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              duration,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: context.greenColor, width: 0.5),
+              ),
+              child: Text(
+                '${discountPercentage.toStringAsFixed(0)}%',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w300,
+                  color: context.greenColor,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'R\$ ${price.toStringAsFixed(2)}',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w300,
+                color: context.lightGreyColor,
+                decoration: TextDecoration.lineThrough,
+                decorationColor: context.lightGreyColor,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              'R\$ ${totalPrice.toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

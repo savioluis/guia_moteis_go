@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class CarouselItemModel {
@@ -6,25 +5,43 @@ class CarouselItemModel {
   final String location;
   final double discountPercentage;
   final double startPrice;
-  
+  final String imageUrl;
+
   CarouselItemModel({
     required this.name,
     required this.location,
     required this.discountPercentage,
     required this.startPrice,
+    required this.imageUrl,
   });
+
+  static List<CarouselItemModel> exampleCarousel({required int amount}) {
+    return List.generate(
+      amount,
+      (index) => CarouselItemModel(
+        name: 'Motel ${index++}',
+        location: 'bairro ${index++} - cidade ${index++}',
+        discountPercentage: (10.0 * index),
+        startPrice: ((98.5 * index) + 5 * index),
+        imageUrl:
+            'https://cdn.guiademoteis.com.br/Images/moteis/3148-Motel-Le-Nid/suites/17418-Marselha-Sexy/fotos/ed3ff4dc-3049-42ab-8913-c45305f4a9ed-suites.jpg',
+      ),
+    );
+  }
 
   CarouselItemModel copyWith({
     String? name,
     String? location,
     double? discountPercentage,
     double? startPrice,
+    String? imageUrl,
   }) {
     return CarouselItemModel(
       name: name ?? this.name,
       location: location ?? this.location,
       discountPercentage: discountPercentage ?? this.discountPercentage,
       startPrice: startPrice ?? this.startPrice,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 
@@ -34,6 +51,7 @@ class CarouselItemModel {
       'location': location,
       'discountPercentage': discountPercentage,
       'startPrice': startPrice,
+      'imageUrl': imageUrl,
     };
   }
 
@@ -43,6 +61,7 @@ class CarouselItemModel {
       location: map['location'] as String,
       discountPercentage: map['discountPercentage'] as double,
       startPrice: map['startPrice'] as double,
+      imageUrl: map['imageUrl'] as String,
     );
   }
 
@@ -53,7 +72,7 @@ class CarouselItemModel {
 
   @override
   String toString() {
-    return 'CarouselItemModel(name: $name, location: $location, discountPercentage: $discountPercentage, startPrice: $startPrice)';
+    return 'CarouselItemModel(name: $name, location: $location, discountPercentage: $discountPercentage, startPrice: $startPrice, imageUrl: $imageUrl)';
   }
 
   @override
@@ -63,7 +82,8 @@ class CarouselItemModel {
     return other.name == name &&
         other.location == location &&
         other.discountPercentage == discountPercentage &&
-        other.startPrice == startPrice;
+        other.startPrice == startPrice &&
+        other.imageUrl == imageUrl;
   }
 
   @override
@@ -71,6 +91,7 @@ class CarouselItemModel {
     return name.hashCode ^
         location.hashCode ^
         discountPercentage.hashCode ^
-        startPrice.hashCode;
+        startPrice.hashCode ^
+        imageUrl.hashCode;
   }
 }

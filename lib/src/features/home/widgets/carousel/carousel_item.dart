@@ -13,8 +13,6 @@ class CarouselItem extends StatelessWidget {
 
   final CarouselItemModel item;
 
-
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -32,8 +30,7 @@ class CarouselItem extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
-                imageUrl:
-                    'https://www.colorxs.com/img/color/name/warm-black.png',
+                imageUrl: item.imageUrl,
                 fit: BoxFit.cover,
                 width: 148,
                 height: 148,
@@ -59,14 +56,14 @@ class CarouselItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'motel up',
+                              item.name,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
-                              'cambeba - fortaleza',
+                              item.location,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               style: TextStyle(
@@ -98,7 +95,7 @@ class CarouselItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              '30% de desconto',
+                              '${item.discountPercentage.toStringAsFixed(0)}% de desconto',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   decoration: TextDecoration.underline,
@@ -110,7 +107,7 @@ class CarouselItem extends StatelessWidget {
                               thickness: 2,
                             ),
                             Text(
-                              'a partir de R\$ 133,75',
+                              'a partir de R\$ ${item.startPrice}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w300,
                               ),
