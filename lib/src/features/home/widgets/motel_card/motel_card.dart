@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:guia_moteis_go/core/theme/colors/colors_extension.dart';
-import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card_body_model.dart';
-import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card_model.dart';
-import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card_header_model.dart';
+import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card/category/motel_category_model.dart';
+import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card/motel_card_body_model.dart';
+import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card/motel_card_model.dart';
+import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card/motel_card_header_model.dart';
+import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card/price/price_model.dart';
 import 'package:very_good_infinite_list/very_good_infinite_list.dart';
 
 class MotelCardListView extends StatelessWidget {
@@ -17,8 +19,9 @@ class MotelCardListView extends StatelessWidget {
       children: [
         CardHeader(header: motels[0].header),
         const SizedBox(height: 24),
-        SizedBox(
-          height: 496,
+        Container(
+          color: Colors.blue.withOpacity(0.2),
+          height: 999,
           child: InfiniteList(
             scrollDirection: Axis.horizontal,
             itemCount: motels.length,
@@ -27,7 +30,11 @@ class MotelCardListView extends StatelessWidget {
             itemBuilder: (context, index) {
               return SizedBox(
                 width: MediaQuery.sizeOf(context).width - 48,
-                child: CardBody(body: motels[index].body),
+                child: CardBody(
+                  body: motels[index].body,
+                  categories: motels[index].categories,
+                  prices: motels[index].prices,
+                ),
               );
             },
           ),
@@ -102,9 +109,13 @@ class CardBody extends StatelessWidget {
   const CardBody({
     super.key,
     required this.body,
+    required this.categories,
+    required this.prices,
   });
 
   final MotelCardBodyModel body;
+  final List<MotelCategoryModel> categories;
+  final List<MotelPriceModel> prices;
 
   @override
   Widget build(BuildContext context) {
@@ -150,101 +161,133 @@ class CardBody extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            color: context.secondaryColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
-          ),
-          child: Row(
-            children: [
-              ...List.generate(
-                body.categoriesImagesUrls.length > 3
-                    ? 3
-                    : body.categoriesImagesUrls.length,
-                (index) => index,
-              ).map(
-                (index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: context.lightGreyColor.withOpacity(0.1),
-                    ),
-                    margin: const EdgeInsets.only(right: 18),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: body.categoriesImagesUrls[index],
-                        width: 56,
-                        height: 56,
-                      ),
-                    ),
-                  );
-                },
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'ver \ntodos',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(color: context.greyColor),
-                  ),
-                  const SizedBox(width: 8),
-                  Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    color: context.greyColor,
-                    size: 18,
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
+        CategoryContent(categories: categories),
         const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: context.secondaryColor,
+        PriceContent(prices: prices),
+      ],
+    );
+  }
+}
+
+class CategoryContent extends StatelessWidget {
+  const CategoryContent({
+    super.key,
+    required this.categories,
+  });
+
+  final List<MotelCategoryModel> categories;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: context.secondaryColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 12,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ...List.generate(
+            categories.length > 3 ? 3 : categories.length,
+            (index) => index,
+          ).map(
+            (index) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: context.lightGreyColor.withOpacity(0.1),
+                ),
+                margin: const EdgeInsets.only(right: 18),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CachedNetworkImage(
+                    imageUrl: categories[index].image,
+                    width: 56,
+                    height: 56,
+                  ),
+                ),
+              );
+            },
           ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '2 horas',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  Text(
-                    'R\$ 190,00',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ],
+              Text(
+                'ver \ntodos',
+                textAlign: TextAlign.end,
+                style: TextStyle(color: context.greyColor),
               ),
+              const SizedBox(width: 8),
               Icon(
-                Icons.keyboard_arrow_right_rounded,
+                Icons.keyboard_arrow_down_rounded,
+                color: context.greyColor,
+                size: 18,
               )
             ],
           ),
-        ),
-      ],
+        ],
+      ),
+    );
+  }
+}
+
+class PriceContent extends StatelessWidget {
+  const PriceContent({
+    super.key,
+    required this.prices,
+  });
+
+  final List<MotelPriceModel> prices;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: prices
+          .map(
+            (priceModel) => Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: context.secondaryColor,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
+              margin: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${priceModel.duration} horas',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      Text(
+                        'R\$ ${priceModel.price.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Icon(Icons.keyboard_arrow_right_rounded),
+                ],
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }

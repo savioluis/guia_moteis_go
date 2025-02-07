@@ -10,7 +10,7 @@ import 'package:guia_moteis_go/src/features/home/presentation/home_controller.da
 import 'package:guia_moteis_go/src/features/home/presentation/home_state.dart';
 import 'package:guia_moteis_go/src/features/home/widgets/carousel/carousel_item.dart';
 import 'package:guia_moteis_go/src/features/home/widgets/carousel/carousel_widget.dart';
-import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card_model.dart';
+import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel_card/motel_card_model.dart';
 import 'package:guia_moteis_go/src/features/home/widgets/motel_card/motel_card.dart';
 
 class HomePage extends StatelessWidget {
