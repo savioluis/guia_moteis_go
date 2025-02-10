@@ -138,25 +138,35 @@ class HomePage extends StatelessWidget {
 
               return RefreshIndicator(
                 onRefresh: () async => controller.fetchInitialData(),
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CarouselWidget(
-                          items: motelsCarouselData,
-                          onItemPressed: (itemIndex) {},
-                          controller: controller.carouselController,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: CarouselWidget(
+                                items: motelsCarouselData,
+                                onItemPressed: (itemIndex) {},
+                                controller: controller.carouselController,
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            MotelCardListView(
+                              motels: motelsCardListData,
+                              headerPadding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              bodyPadding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 24),
-                        /// TODO: FIX THE SCROLL PHYSICS AND THE SPACING
-                        MotelCardListView(motels: motelsCardListData),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               );
             }

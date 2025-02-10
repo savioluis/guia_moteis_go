@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:guia_moteis_go/core/services/dtos/period_dto.dart';
 import 'package:guia_moteis_go/core/services/motel_service.dart';
 import 'package:guia_moteis_go/src/features/home/presentation/home_state.dart';
 
@@ -8,7 +9,7 @@ class HomeController extends Cubit<HomeState> {
       : _motelService = motelService,
         super(HomeInitialState());
 
-  final carouselController = PageController(viewportFraction: 1.25);
+  final carouselController = PageController(viewportFraction: 1.1);
   final MotelService _motelService;
 
   Future<void> fetchInitialData() async {
@@ -22,7 +23,7 @@ class HomeController extends Cubit<HomeState> {
         return;
       }
 
-      // emit(HomeFailureState(message: 'Erro inesperado !'));
+      // emit(HomeFailureState(message: 'Erro inesperado ! (teste)'));
       emit(HomeSuccessState(motelsResponse: motelsResponse));
     } catch (e) {
       emit(HomeFailureState(message: e.toString()));

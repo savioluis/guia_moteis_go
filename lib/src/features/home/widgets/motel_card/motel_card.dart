@@ -9,29 +9,34 @@ import 'package:guia_moteis_go/src/features/home/widgets/motel_card/models/motel
 import 'package:very_good_infinite_list/very_good_infinite_list.dart';
 
 class MotelCardListView extends StatelessWidget {
-  const MotelCardListView({required this.motels, super.key});
+  const MotelCardListView({
+    required this.motels,
+    this.headerPadding = const EdgeInsets.symmetric(horizontal: 12),
+    this.bodyPadding,
+    super.key,
+  });
 
   final List<MotelCardModel> motels;
+  final EdgeInsetsGeometry headerPadding;
+  final EdgeInsets? bodyPadding;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CardHeader(header: motels[0].header),
+        Padding(
+          padding: headerPadding,
+          child: CardHeader(header: motels[0].header),
+        ),
         const SizedBox(height: 24),
-        SizedBox(
-          height: 688,
+        AspectRatio(
+          aspectRatio: 1 / 2,
           child: InfiniteList(
+            padding: bodyPadding,
             scrollDirection: Axis.horizontal,
             itemCount: motels.length,
-            onFetchData: () {},
-            separatorBuilder: (context, index) => const SizedBox(width: 12),
-            physics: const PageScrollPhysics(),
             itemBuilder: (context, index) {
-              return Container(
-                margin: index == 0
-                    ? const EdgeInsets.only(left: 12)
-                    : const EdgeInsets.symmetric(horizontal: 12),
+              return SizedBox(
                 width: MediaQuery.sizeOf(context).width - 48,
                 child: CardBody(
                   body: motels[index].body,
@@ -39,6 +44,10 @@ class MotelCardListView extends StatelessWidget {
                   prices: motels[index].prices,
                 ),
               );
+            },
+            separatorBuilder: (context, index) => const SizedBox(width: 12),
+            onFetchData: () {
+              // paginated requisition to load more data here
             },
           ),
         ),

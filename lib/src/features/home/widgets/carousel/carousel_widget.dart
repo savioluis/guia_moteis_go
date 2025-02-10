@@ -32,7 +32,7 @@ class CarouselWidget extends StatelessWidget {
       children: [
         SizedBox(
           height: height,
-          width: MediaQuery.of(context).size.width,
+          width: double.infinity,
           child: PageView.builder(
             controller: controller,
             itemCount: items.length,
@@ -51,7 +51,7 @@ class CarouselWidget extends StatelessWidget {
                         child: InkWell(
                           onTap: () => onItemPressed?.call(index),
                           borderRadius: BorderRadius.circular(10),
-                          splashColor: Colors.grey.withOpacity(0.2),
+                          splashColor: context.lightGreyColor.withOpacity(0.18),
                         ),
                       ),
                     ],
