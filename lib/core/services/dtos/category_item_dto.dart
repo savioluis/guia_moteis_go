@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'category_item_dto.g.dart';

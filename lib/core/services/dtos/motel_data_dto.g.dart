@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'motel_data_dto.dart';
