@@ -10,8 +10,8 @@ class MotelService {
     try {
       final response = await _httpClient.get('');
       return MotelResponseDTO.fromJson(response);
-    } catch (e, s) {
-      throw (e, s);
+    } catch (e) {
+      throw Exception('Failed to load motels: $e');
     }
   }
 }
