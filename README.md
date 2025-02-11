@@ -1,36 +1,38 @@
-📱 Teste para Desenvolvedor Mobile (Flutter) - Segmento de Motéis
+# 📱 Teste para Desenvolvedor Mobile (Flutter) - Segmento de Motéis  
 
-Este repositório contém a implementação do desafio para avaliação de habilidades em Flutter, incluindo consumo de API, gerenciamento de estado e testes unitários.
+Este repositório contém a implementação do desafio para avaliação de habilidades em **Flutter**, incluindo consumo de API, gerenciamento de estado e testes unitários.  
 
-🚀 Descrição do Desafio
+## 🚀 Descrição do Desafio  
 
-O objetivo é criar uma réplica da tela de listagem de motéis (aba “Ir Agora”) do aplicativo Guia de Motéis GO, consumindo dados de APIs mock fornecidas.
+O objetivo é criar uma réplica da tela de **listagem de motéis** (aba "Ir Agora") do aplicativo **Guia de Motéis GO**, consumindo dados de uma API mock fornecida.  
 
-🔗 API Mock Utilizada
+### 🔗 API Mock Utilizada  
+Os dados dos motéis são obtidos a partir da seguinte URL:  
+- [https://jsonkeeper.com/b/1IXK](https://jsonkeeper.com/b/1IXK)  
 
-Os dados dos motéis são obtidos a partir da seguinte URL:
-	•	https://jsonkeeper.com/b/1IXK
+### 📌 Funcionalidades Implementadas  
+✅ Listagem de motéis com **nome, preço e imagem**  
+✅ Consumo de API utilizando `http`  
+✅ Gerenciamento de estado com **Bloc**  
+✅ Injeção de dependências com **GetIt**  
+✅ Criação eficiente de DTOs com **json_annotation**  
+✅ Testes unitários com **mocktail**  
+✅ Geração de **coverage** com `lcov` e visualização em HTML  
 
-📌 Funcionalidades Implementadas
+## 🛠 Tecnologias Utilizadas  
 
-✅ Listagem de motéis com nome, preço e imagem
-✅ Consumo de API utilizando http
-✅ Gerenciamento de estado com Bloc
-✅ Injeção de dependências com GetIt
-✅ Criação eficiente de DTOs com json_annotation
-✅ Testes unitários com mocktail
+- **Flutter** para o desenvolvimento da interface  
+- **Dart** como linguagem de programação  
+- **Bloc** para gerenciamento de estado  
+- **http** para consumo da API  
+- **json_annotation** para geração automática dos DTOs  
+- **GetIt** para injeção de dependências  
+- **mocktail** para mockar requisições HTTP nos testes  
+- **lcov** para geração de relatórios de cobertura de testes  
 
-🛠 Tecnologias Utilizadas
-	•	Flutter para o desenvolvimento da interface
-	•	Dart como linguagem de programação
-	•	Bloc para gerenciamento de estado
-	•	http para consumo da API
-	•	json_annotation para geração automática dos DTOs
-	•	GetIt para injeção de dependências
-	•	mocktail para mockar requisições HTTP nos testes
+## 📂 Estrutura do Projeto  
 
-📂 Estrutura do Projeto
-
+```plaintext
 lib/
 │── app/
 │   ├── app.dart
@@ -61,39 +63,72 @@ lib/
 │   │   │   ├── motel_card/
 │
 │── main.dart
+```
 
-🧪 Testes
+## 🧪 Testes  
 
-Os testes foram implementados utilizando mocktail para simular requisições HTTP e validar os principais fluxos da aplicação.
+Os testes foram implementados utilizando **mocktail** para simular requisições HTTP e validar os principais fluxos da aplicação.  
 
-Para rodar os testes unitários, utilize:
+Para rodar os testes unitários, utilize:  
 
+```sh
 flutter test
+```
 
-🚀 Como Executar o Projeto
-	1.	Clone este repositório:
+## 📊 Cobertura de Testes  
 
+A cobertura de testes foi gerada utilizando **lcov**, permitindo visualizar os resultados em uma interface HTML.  
+
+### Gerar o relatório de cobertura:  
+```sh
+flutter test --coverage
+```
+
+### Gerar os arquivos HTML e visualizar os resultados:  
+```sh
+genhtml coverage/lcov.info -o coverage/html
+```
+
+### Abrir o relatório no navegador:  
+- **macOS:**  
+  ```sh
+  open coverage/html/index.html
+  ```
+- **Windows:**  
+  ```sh
+  start coverage/html/index.html
+  ```
+- **Linux:**  
+  ```sh
+  xdg-open coverage/html/index.html
+  ```
+
+---
+
+## 🚀 Como Executar o Projeto  
+
+### 1️⃣ Clone este repositório:  
+```sh
 git clone https://github.com/savioluis/guia_moteis_go.git
+```
 
+### 2️⃣ Acesse o diretório do projeto:  
+```sh
+cd guia_moteis_go
+```
 
-	2.	Acesse o diretório do projeto:
-
-cd nome-do-repositorio
-
-
-	3.	Instale as dependências:
-
+### 3️⃣ Instale as dependências:  
+```sh
 flutter pub get
+```
 
-
-	4.	Execute o projeto em um dispositivo ou emulador:
-
+### 4️⃣ Execute o projeto em um dispositivo ou emulador:  
+```sh
 flutter run
+```
 
+---
 
-
-📄 Licença
+## 📄 Licença  
 
 Este projeto foi desenvolvido para fins de avaliação técnica e não possui uma licença específica.
-
-Se precisar de mais ajustes ou quiser destacar algo, me avise!
