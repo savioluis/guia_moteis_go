@@ -30,7 +30,7 @@ class MotelCardListView extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         AspectRatio(
-          aspectRatio: 1 / 2,
+          aspectRatio: 1 / 1.6,
           child: InfiniteList(
             padding: bodyPadding,
             scrollDirection: Axis.horizontal,
