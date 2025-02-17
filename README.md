@@ -4,7 +4,12 @@ Este repositório contém a implementação do desafio para avaliação de habil
 
 ## 🚀 Descrição do Desafio  
 
-O objetivo é criar uma réplica da tela de **listagem de motéis** (aba "Ir Agora") do aplicativo **Guia de Motéis GO**, consumindo dados de uma API mock fornecida.  
+O objetivo é criar uma réplica da tela de **listagem de motéis** (aba "Ir Agora") do aplicativo **Guia de Motéis GO**, consumindo dados de uma API mock fornecida. 
+
+## 🖥️ Demonstração
+
+https://github.com/user-attachments/assets/e2025251-4772-47ee-a534-ac06ffa2cdef
+
 
 ### 🔗 API Mock Utilizada  
 Os dados dos motéis são obtidos a partir da seguinte URL:  
